@@ -23,6 +23,7 @@
   "homepage": "https://github.com/lyolka92/youtube-search#readme",
   "devDependencies": {
     "@babel/core": "^7.9.6",
+    "@babel/plugin-transform-runtime": "^7.10.1",
     "@babel/preset-env": "^7.9.6",
     "autoprefixer": "^9.8.0",
     "babel-loader": "^8.1.0",
@@ -42,5 +43,8 @@
     "webpack-cli": "^3.3.11",
     "webpack-dev-server": "^3.11.0",
     "webpack-merge": "^4.2.2"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.10.1"
   }
 }
