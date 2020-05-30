@@ -1,0 +1,26 @@
+@import "utils/fonts";
+@import "utils/mixins";
+@import "utils/vars";
+
+html {
+  line-height: $mainLineHeight;
+  font-size: $mainFontSize;
+  color: $mainFontColor;
+  height: 100%;
+
+  @media screen and (max-width: $desktopWidth) {
+    font-size: 16px;
+  }
+  @media screen and (max-width: $tabletWidth) {
+    font-size: 15px;
+  }
+  @media screen and (max-width: $phoneWidth) {
+    font-size: 14px;
+  }
+}
+
+h1 {
+  font-size: rem(20);
+}
+
+//todo import modules from scss/modules, when you will write them
