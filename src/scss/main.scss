@@ -3,10 +3,12 @@
 @import "utils/vars";
 
 html {
+  font-family: $mainFont;
   line-height: $mainLineHeight;
   font-size: $mainFontSize;
   color: $mainFontColor;
   height: 100%;
+  background-color: #eee;
 
   @media screen and (max-width: $desktopWidth) {
     font-size: 16px;
@@ -19,8 +21,27 @@ html {
   }
 }
 
-h1 {
-  font-size: rem(20);
+body, h1, h2 {
+  margin: 0;
 }
 
-//todo import modules from scss/modules, when you will write them
+p {
+  margin: $commonMargin/2 0;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60px;
+  margin: $commonMargin;
+
+  @media screen and (max-width: $tabletWidth) {
+    justify-content: flex-end;
+  }
+}
+
+@import "modules/label";
+@import "modules/search";
+@import "modules/slider";
+@import "modules/video";

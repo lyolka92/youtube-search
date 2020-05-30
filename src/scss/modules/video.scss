@@ -1,0 +1,79 @@
+@import "../utils/vars";
+
+.video {
+  max-width: 500px;
+
+  background-color: #fff;
+  border: #ccc 1px solid;
+  border-radius: 5px;
+  line-height: 0;
+
+  &__header {
+    position: relative;
+
+    &-img {
+      width: 100%;
+      border-radius: 4px 4px 0 0;
+    }
+
+    &-title {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+
+      width: 100%;
+      box-sizing: border-box;
+
+      line-height: $mainLineHeight;
+      text-align: center;
+      background-color: rgba(34, 34, 34, 0.5);
+
+      &:hover {
+        background-color: rgba(17, 17, 17, 0.7);
+      }
+
+      &-link {
+        display: inline-block;
+        width: 100%;
+        height: 100%;
+        padding: $commonMargin;
+        color: white;
+
+        &:hover {
+          color: #ddd;
+        }
+      }
+    }
+  }
+
+  &__info {
+    padding: $commonMargin;
+    line-height: $mainLineHeight;
+
+    &-params {
+      & p:last-child {
+        padding-bottom: $commonMargin;
+        border-bottom: #ccc 1px solid;
+      }
+
+      &__author::before {
+        content: "👤"
+      }
+
+      &__upload-date::before {
+        content: "📅"
+      }
+
+      &__view-count::before {
+          content: "🍿"
+      }
+    }
+
+
+
+    &-description {
+      margin-top: $commonMargin;
+      font-weight: 300;
+    }
+  }
+}

@@ -1,0 +1,14 @@
+@import '../utils/vars';
+
+.label {
+  position: absolute;
+  top: $commonMargin;
+  left: $commonMargin;
+
+  width: $labelWidth;
+  height: 60px;
+
+  font-size: $commonMargin;
+  font-weight: 700;
+  color: #555;
+}

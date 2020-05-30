@@ -32,8 +32,7 @@ module.exports = {
             options: {
                 name: '[name].[ext]'
             }
-        },
-        {
+        }, {
             test: /\.scss$/,
             use: [
                 'style-loader',

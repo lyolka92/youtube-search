@@ -1,5 +1,5 @@
 //Font
-$mainFont         : sans-serif;
+$mainFont         : 'Roboto', sans-serif;
 $mainFontColor    : #101010;
 $mainFontSize     : 18px;
 $mainFontWeight   : 400;
@@ -11,3 +11,10 @@ $smDesktopWidth   : 980px;
 $tabletWidth      : 768px;
 $phoneWidth       : 480px;
 $smPhoneWidth     : 320px;
+$commonMargin: 10px;
+
+//Label
+$labelWidth       : 100px;
+
+//Search
+$searchHeight     : 40px;
