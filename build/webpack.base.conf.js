@@ -62,8 +62,7 @@ module.exports = {
         }),
         new CopyWebpackPlugin({
             patterns: [
-                { from: `${PATHS.src}/img`,     to: `${PATHS.assets}img` },
-                { from: `${PATHS.src}/static`,  to: ''}
+                { from: `${PATHS.src}/img`,     to: `${PATHS.assets}img` }
             ],
         }),
         new HtmlWebpackPlugin({
