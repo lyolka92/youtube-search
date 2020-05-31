@@ -47,17 +47,16 @@
   }
 
   &__info {
-    padding: $commonMargin;
+    padding: $commonMargin * 2;
     line-height: $mainLineHeight;
 
     &-params {
       padding-left: 0;
-      list-style: none;
+      padding-bottom: $commonMargin;
+      margin: 0;
 
-      & p:last-child {
-        padding-bottom: $commonMargin;
-        border-bottom: #ccc 1px solid;
-      }
+      list-style: none;
+      border-bottom: #ccc 1px solid;
 
       &__author::before {
         content: "👤"
@@ -72,10 +71,9 @@
       }
     }
 
-
-
     &-description {
       margin-top: $commonMargin;
+      margin-bottom: 0;
       font-weight: 300;
     }
   }
