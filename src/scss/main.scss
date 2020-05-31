@@ -33,7 +33,7 @@ header {
   align-items: center;
   justify-content: center;
   height: 60px;
-  margin: $commonMargin;
+  margin: $commonMargin * 2;
 
   @media screen and (max-width: $tabletWidth) {
     justify-content: flex-end;

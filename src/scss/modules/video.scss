@@ -51,6 +51,9 @@
     line-height: $mainLineHeight;
 
     &-params {
+      padding-left: 0;
+      list-style: none;
+
       & p:last-child {
         padding-bottom: $commonMargin;
         border-bottom: #ccc 1px solid;

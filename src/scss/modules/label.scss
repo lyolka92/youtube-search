@@ -2,8 +2,8 @@
 
 .label {
   position: absolute;
-  top: $commonMargin;
-  left: $commonMargin;
+  top: $commonMargin * 2;
+  left: $commonMargin * 2;
 
   width: $labelWidth;
   height: 60px;
