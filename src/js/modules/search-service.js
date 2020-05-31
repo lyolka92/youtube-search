@@ -1,11 +1,9 @@
-import GOOGLE_API_KEY from "./api-keys";
-
 const SearchService = (function() {
     const apiUrl = 'https://www.googleapis.com/youtube/v3/';
-    const apiKey = GOOGLE_API_KEY;
-    const result = {};
+    const apiKey = process.env.GOOGLE_API_KEY;
+    const searchMethods = {};
 
-    result.getVideos = async function(searchRequest) {
+    searchMethods.getVideos = async function(searchRequest) {
         const url = `${apiUrl}search?$key=${apiKey}&type=video&part=snippet&maxResults=15&q=${searchRequest}`;
         let videos;
 
@@ -20,7 +18,7 @@ const SearchService = (function() {
         return videos;
     }
 
-    return result;
+    return searchMethods;
 })();
 
 export default SearchService;
