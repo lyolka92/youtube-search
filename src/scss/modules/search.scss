@@ -1,18 +1,20 @@
 @import '../utils/vars';
 
 .search {
-  display: inline-flex;
+  display: flex;
   flex-wrap: nowrap;
   align-items: stretch;
 
-  min-width: 40%;
+  min-width: 20%;
+  max-width: 65%;
   height: $searchHeight;
 
   &__input {
-    height: $searchHeight;
     padding-left: $commonMargin;
+    min-width: 50px;
     box-sizing: border-box;
 
+    flex-shrink: 2;
     flex-grow: 1;
 
     font-size: $mainFontSize;
@@ -32,8 +34,9 @@
   }
 
   &__button {
-    width: $searchHeight;
-    box-sizing: border-box;
+    flex-basis: $searchHeight;
+    flex-shrink: 1;
+    flex-grow: 0;
 
     cursor: pointer;
 
