@@ -28,8 +28,7 @@ const Finder = (function() {
             console.log('Type your request');
         }
 
-        const videos = await SearchService.getVideos(searchRequest);
-        console.log(videos);
+        const videos = await SearchService.getVideosByKeyword(searchRequest);
     }
 
     Finder.prototype.show = function () {
