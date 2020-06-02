@@ -43,14 +43,17 @@ const SearchService = (function() {
 
 function mapVideosInfo(videos) {
     return videos.items.map(video => {
+        const {title, channelTitle: author, publishedAt: uploadDate, description, thumbnails : {high : {url : imgUrl}}} = video.snippet;
+        const {id : videoId, statistics : { viewCount }} = video;
         return {
-            title: video.snippet.title,
-            url: `${youtubeUrl}${video.id}`,
-            img: video.snippet.thumbnails.high.url,
-            author: video.snippet.channelTitle,
-            uploadDate: video.snippet.publishedAt,
-            description: video.snippet.description,
-            viewCount: video.statistics.viewCount
+            title: title,
+            author: author,
+            uploadDate: uploadDate,
+            description: description,
+            imgUrl: imgUrl,
+            id: videoId,
+            videoUrl: `${youtubeUrl}${videoId}`,
+            viewCount: viewCount
         }
     });
 }
