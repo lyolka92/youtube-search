@@ -1,7 +1,9 @@
 import SearchService from "./search-service";
+import Loader from "./loader";
 
 const Finder = (function() {
     const header = document.querySelector('#header');
+    const main = document.querySelector('#main');
     const searchFormContentTemplate =
         `<input class="search__input" id="search__input" type="text" aria-label="search" placeholder="Search" required>
         <button class="search__button" type="submit" aria-label="search">
@@ -22,6 +24,10 @@ const Finder = (function() {
 
     Finder.prototype.search = async function(event, searchInput) {
         event.preventDefault();
+
+        const searchLoader = new Loader();
+        searchLoader.show(main);
+
         const searchRequest = searchInput.value;
 
         if (!searchRequest) {
@@ -29,6 +35,9 @@ const Finder = (function() {
         }
 
         const videos = await SearchService.getVideosByKeyword(searchRequest);
+        console.log(videos);
+
+        searchLoader.remove();
     }
 
     Finder.prototype.show = function () {
