@@ -34,6 +34,7 @@ header {
   justify-content: center;
   height: 60px;
   margin: $commonMargin * 2;
+  margin-bottom: $commonMargin;
 
   @media screen and (max-width: $tabletWidth) {
     justify-content: flex-end;
