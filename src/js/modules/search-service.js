@@ -45,6 +45,7 @@ function mapVideosInfo(videos) {
     return videos.items.map(video => {
         const {title, channelTitle: author, publishedAt: uploadDate, description, thumbnails : {high : {url : imgUrl}}} = video.snippet;
         const {id : videoId, statistics : { viewCount }} = video;
+
         return {
             title: title,
             author: author,

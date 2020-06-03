@@ -1,4 +1,5 @@
 import SearchService from "./search-service";
+import Cards from "./cards";
 import Loader from "./loader";
 
 const Finder = (function() {
@@ -35,7 +36,8 @@ const Finder = (function() {
         }
 
         const videos = await SearchService.getVideosByKeyword(searchRequest);
-        console.log(videos);
+
+        Cards.update(videos);
 
         searchLoader.remove();
     }
