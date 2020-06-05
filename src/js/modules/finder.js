@@ -1,6 +1,6 @@
 import SearchService from "./search-service";
-import Cards from "./cards";
 import Loader from "./loader";
+import VideoManager from "./video-manager";
 
 const Finder = (function() {
     const header = document.querySelector('#header');
@@ -30,14 +30,9 @@ const Finder = (function() {
         searchLoader.show(main);
 
         const searchRequest = searchInput.value;
+        const searchResult = await SearchService.getVideosByKeyword(searchRequest);
 
-        if (!searchRequest) {
-            console.log('Type your request');
-        }
-
-        const videos = await SearchService.getVideosByKeyword(searchRequest);
-
-        Cards.update(videos);
+        VideoManager.addVideos(searchResult);
 
         searchLoader.remove();
     }

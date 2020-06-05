@@ -6,18 +6,24 @@ const SearchService = (function() {
     const searchMethods = {};
 
     searchMethods.getVideosByKeyword = async function(searchRequest) {
+        let videos;
+
         const url = `${apiUrl}search?$key=${apiKey}&type=video&part=snippet&maxResults=15&q=${searchRequest}`;
         const response = await fetch(url);
 
         if (response.ok) {
-            var videos = await response.json();
+            videos = await response.json();
         } else {
             alert("HTTP Error in getVideosByKeyword: " + response.status);
         }
 
         const videosWithStats = await searchMethods.getVideosStats(videos.items);
 
-        return mapVideosInfo(videosWithStats);
+        return {
+            nextPageToken: videos.nextPageToken,
+            keyword: searchRequest,
+            items: mapVideosInfo(videosWithStats),
+        };
     }
 
     searchMethods.getVideoStatsById = async function (videoId) {
