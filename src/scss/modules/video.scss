@@ -13,6 +13,10 @@
   border-radius: 5px;
   line-height: 0;
 
+  &__hidden {
+    display: none;
+  }
+
   &__header {
     position: relative;
 

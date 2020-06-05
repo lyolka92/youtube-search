@@ -1,10 +1,11 @@
 import Cards from "./cards";
+import Slider from "./slider";
 
 const VideoManager = (function () {
     const videoManagerMethods = {};
 
     let videos = [];
-    let sliderParams = {
+    let videosInfo = {
         searchParams: {
             nextPageToken: null,
             keyword: '',
@@ -17,16 +18,16 @@ const VideoManager = (function () {
     };
 
     videoManagerMethods.addVideos = function (searchResult) {
-        if (videos.length > 0 && sliderParams.searchParams.keyword !== searchResult.keyword) {
+        if (videos.length > 0 && videosInfo.searchParams.keyword !== searchResult.keyword) {
             videoManagerMethods.removeVideos();
         }
 
         videos.push(...searchResult.items);
-        sliderParams.searchParams.nextPageToken = searchResult.nextPageToken;
-        sliderParams.searchParams.keyword = searchResult.keyword;
+        videosInfo.searchParams.nextPageToken = searchResult.nextPageToken;
+        videosInfo.searchParams.keyword = searchResult.keyword;
         addPagesInfo(videos);
 
-        Cards.moveToPage(videos, sliderParams.pagination.currentPage);
+        Slider.moveToPage(videos, videosInfo.pagination.pagesCount, videosInfo.pagination.currentPage);
     }
 
     videoManagerMethods.removeVideos = function () {
@@ -35,9 +36,36 @@ const VideoManager = (function () {
         }
 
         videos = [];
-        sliderParams.searchParams = {};
+        videosInfo.searchParams = {};
 
         Cards.update(videos);
+    }
+
+    videoManagerMethods.moveNext = function () {
+        if (videosInfo.pagination.currentPage > videosInfo.pagination.pagesCount) {
+            throw new Error("This is the last page");
+        }
+
+        Slider.moveToPage(videos, videosInfo.pagination.pagesCount, videosInfo.pagination.currentPage);
+    }
+
+    videoManagerMethods.movePrev = function () {
+        if (videosInfo.pagination.currentPage < 1) {
+            throw new Error("This is the first page");
+        }
+
+        Slider.moveToPage(videos, videosInfo.pagination.pagesCount, videosInfo.pagination.currentPage);
+    }
+
+    videoManagerMethods.updatePage = function (page) {
+        const oldPage = videosInfo.pagination.currentPage;
+        videosInfo.pagination.currentPage = page;
+
+        if (page > oldPage) {
+            videoManagerMethods.moveNext();
+        } else if (page < oldPage) {
+            videoManagerMethods.movePrev();
+        }
     }
 
     function addPagesInfo(videos) {
@@ -46,23 +74,23 @@ const VideoManager = (function () {
 
         switch (true) {
             case screenWidth >= 1280:
-                sliderParams.pagination.videosPerPage = 4;
+                videosInfo.pagination.videosPerPage = 4;
                 break;
             case screenWidth >= 910:
-                sliderParams.pagination.videosPerPage = 3;
+                videosInfo.pagination.videosPerPage = 3;
                 break;
             case screenWidth >= 610:
-                sliderParams.pagination.videosPerPage = 2;
+                videosInfo.pagination.videosPerPage = 2;
                 break;
             default:
-                sliderParams.pagination.videosPerPage = 1;
+                videosInfo.pagination.videosPerPage = 1;
                 break;
         }
 
-        sliderParams.pagination.pagesCount = Math.ceil(videosCount / sliderParams.pagination.videosPerPage);
+        videosInfo.pagination.pagesCount = Math.ceil(videosCount / videosInfo.pagination.videosPerPage);
 
         videos.forEach((video, index) => {
-            video.pageNumber = Math.floor((index + sliderParams.pagination.videosPerPage) / sliderParams.pagination.videosPerPage);
+            video.pageNumber = Math.floor((index + videosInfo.pagination.videosPerPage) / videosInfo.pagination.videosPerPage);
         })
     }
 

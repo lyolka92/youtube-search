@@ -3,10 +3,10 @@ const Cards = (function () {
     const slider = document.querySelector("#slider");
 
     cardsMethods.update = function (videos) {
+        removeCards();
+
         if (videos.length > 0) {
             renderCards(videos);
-        } else {
-            removeCards();
         }
     }
 
@@ -16,9 +16,13 @@ const Cards = (function () {
 
     function renderCard(video) {
         const card = document.createElement('div');
-        card.classList.add("video", "slider__item");
+
         card.innerHTML = fillTemplate(video);
         card.querySelector(".video__header").style.backgroundImage = `url(${video.imgUrl})`;
+        card.classList.add("video", "slider__item");
+        if (video.hidden) {
+            card.classList.add("video__hidden");
+        }
 
         slider.appendChild(card);
 
@@ -58,11 +62,6 @@ const Cards = (function () {
     function removeCards() {
         const cards = slider.querySelectorAll(".video, .slider__item");
         cards.forEach(card => card.remove());
-    }
-
-    cardsMethods.moveToPage = function (videos, pageNumber) {
-        const currentPageVideos = videos.filter(video => video.pageNumber === pageNumber);
-        cardsMethods.update(currentPageVideos);
     }
 
     return cardsMethods;
