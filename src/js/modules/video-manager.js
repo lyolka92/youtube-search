@@ -48,10 +48,10 @@ const VideoManager = (function () {
             case screenWidth >= 1280:
                 sliderParams.pagination.videosPerPage = 4;
                 break;
-            case screenWidth >= 970:
+            case screenWidth >= 910:
                 sliderParams.pagination.videosPerPage = 3;
                 break;
-            case screenWidth >= 480:
+            case screenWidth >= 610:
                 sliderParams.pagination.videosPerPage = 2;
                 break;
             default:
