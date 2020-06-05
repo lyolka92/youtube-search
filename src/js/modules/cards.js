@@ -60,6 +60,11 @@ const Cards = (function () {
         cards.forEach(card => card.remove());
     }
 
+    cardsMethods.moveToPage = function (videos, pageNumber) {
+        const currentPageVideos = videos.filter(video => video.pageNumber === pageNumber);
+        cardsMethods.update(currentPageVideos);
+    }
+
     return cardsMethods;
 })();
 
