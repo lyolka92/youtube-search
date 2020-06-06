@@ -5,10 +5,12 @@ const SearchService = (function() {
     const apiKey = process.env.GOOGLE_API_KEY;
     const searchMethods = {};
 
-    searchMethods.getVideosByKeyword = async function(searchRequest) {
+    searchMethods.getVideosByKeyword = async function (searchRequest, pageToken) {
         let videos;
 
-        const url = `${apiUrl}search?$key=${apiKey}&type=video&part=snippet&maxResults=15&q=${searchRequest}`;
+        const pageTokenQueryParam = pageToken ? `&pageToken=${pageToken}` : '';
+        const url = `${apiUrl}search?$key=${apiKey}&type=video&part=snippet&maxResults=15&q=${searchRequest}${pageTokenQueryParam}`;
+
         const response = await fetch(url);
 
         if (response.ok) {

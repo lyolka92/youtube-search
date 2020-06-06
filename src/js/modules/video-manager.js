@@ -1,5 +1,6 @@
 import Cards from "./cards";
 import Slider from "./slider";
+import SearchService from "./search-service";
 
 const VideoManager = (function () {
     const videoManagerMethods = {};
@@ -41,9 +42,19 @@ const VideoManager = (function () {
         Cards.update(videos);
     }
 
-    videoManagerMethods.moveNext = function () {
+    videoManagerMethods.getMoreVideos = async function (keyword, pageToken) {
+        const newVideos = await SearchService.getVideosByKeyword(keyword, pageToken);
+        videos.push(...newVideos.items);
+        addPagesInfo(videos);
+    }
+
+    videoManagerMethods.moveNext = async function () {
         if (videosInfo.pagination.currentPage > videosInfo.pagination.pagesCount) {
             throw new Error("This is the last page");
+        }
+
+        if (videosInfo.pagination.currentPage >= videosInfo.pagination.pagesCount - 2) {
+            await videoManagerMethods.getMoreVideos(videosInfo.searchParams.keyword, videosInfo.searchParams.nextPageToken);
         }
 
         Slider.moveToPage(videos, videosInfo.pagination.pagesCount, videosInfo.pagination.currentPage);
@@ -57,12 +68,12 @@ const VideoManager = (function () {
         Slider.moveToPage(videos, videosInfo.pagination.pagesCount, videosInfo.pagination.currentPage);
     }
 
-    videoManagerMethods.updatePage = function (page) {
+    videoManagerMethods.updatePage = async function (page) {
         const oldPage = videosInfo.pagination.currentPage;
         videosInfo.pagination.currentPage = page;
 
         if (page > oldPage) {
-            videoManagerMethods.moveNext();
+            await videoManagerMethods.moveNext();
         } else if (page < oldPage) {
             videoManagerMethods.movePrev();
         }
