@@ -1,0 +1,9 @@
+.page {
+  display: flex;
+
+  transition: all 1s ease-in-out;
+
+  &__hidden {
+    display: none;
+  }
+}

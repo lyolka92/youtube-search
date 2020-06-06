@@ -41,8 +41,13 @@ header {
   }
 }
 
+main {
+  overflow: hidden;
+}
+
 @import "modules/label";
 @import "modules/search";
 @import "modules/slider";
+@import "modules/page";
 @import "modules/video";
 @import "modules/loader";
