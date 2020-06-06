@@ -1,6 +1,8 @@
 @import "../utils/vars";
 
 .slider {
+  position: relative;
+
   display: flex;
   justify-content: space-between;
 
@@ -11,6 +13,8 @@
   width: 100%;
   padding: $commonMargin * 2;
   box-sizing: border-box;
+
+  transform-style: preserve-3d;
 
   &__item {
     margin-left: $commonMargin;

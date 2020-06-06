@@ -95,6 +95,30 @@ const Slider = (function () {
         } else {
             sliderMethods.renderPage(pageInfo);
         }
+
+        updateAnimationClasses(pageInfo);
+    }
+
+    function updateAnimationClasses(pageInfo) {
+        // debugger;
+
+        const pageNode = slider.querySelector(`#page-${pageInfo.pageNumber}`);
+        const pageNodeIsPrev = pageNode.classList.contains("page__prev");
+        const pageNodeIsNext = pageNode.classList.contains("page__next");
+
+        if (pageNodeIsPrev && pageInfo.pageNumber !== sliderParams.prevPageNumber) {
+            pageNode.classList.remove("page__prev");
+        }
+
+        if (pageNodeIsNext && pageInfo.pageNumber !== sliderParams.nextPageNumber) {
+            pageNode.classList.remove("page__next");
+        }
+
+        if (pageInfo.pageNumber === sliderParams.prevPageNumber) {
+            pageNode.classList.add("page__prev");
+        } else if (pageInfo.pageNumber === sliderParams.nextPageNumber) {
+            pageNode.classList.add("page__next");
+        }
     }
 
     sliderMethods.renderPage = function (pageInfo) {
