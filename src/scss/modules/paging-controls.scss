@@ -1,0 +1,38 @@
+@import '../utils/vars';
+
+.paging-controls {
+  display: flex;
+  justify-content: center;
+
+  &__item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 1.5rem;
+    width: 1.5rem;
+    margin: $commonMargin / 2;
+    padding: $commonMargin / 4;
+
+    color: #555;
+    text-decoration: none;
+
+    background-color: #ccc;
+    border-radius: 50%;
+
+    &:hover {
+      color: #444;
+      background-color: #bbb;
+    }
+
+    &__active {
+      color: #eee;
+      background-color: #555;
+
+      &:hover {
+        color: #fff;
+        background-color: #444;
+      }
+    }
+  }
+}
