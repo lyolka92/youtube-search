@@ -1,13 +1,11 @@
 const Cards = (function () {
     const cardsMethods = {};
-    const slider = document.querySelector("#slider");
 
     cardsMethods.update = function (page, videos) {
-        if (videos.length > 0) {
-            renderCards(page, videos);
-        } else {
-            removeAllCards();
+        if (!videos || videos.length <= 0) {
+            throw new Error("There is no videos to render cards");
         }
+        renderCards(page, videos);
     }
 
     function renderCards(page, videos) {
@@ -55,11 +53,6 @@ const Cards = (function () {
                     </ul>
                     <p class="video__info-description">${cutDescription}</p>
                 </div>`;
-    }
-
-    function removeAllCards() {
-        const cards = slider.querySelectorAll(".video, .slider__item");
-        cards.forEach(card => card.remove());
     }
 
     return cardsMethods;

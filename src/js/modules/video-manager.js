@@ -1,4 +1,3 @@
-import Cards from "./cards";
 import Slider from "./slider";
 import SearchService from "./search-service";
 
@@ -20,15 +19,18 @@ const VideoManager = (function () {
 
     videoManagerMethods.addVideos = function (searchResult) {
         if (videos.length > 0 && videosInfo.searchParams.keyword !== searchResult.keyword) {
+            const tempSearchResult = Object.assign({}, searchResult);
             videoManagerMethods.removeVideos();
+            videoManagerMethods.addVideos(tempSearchResult);
+        } else {
+            videos.push(...searchResult.items);
+            videosInfo.searchParams.nextPageToken = searchResult.nextPageToken;
+            videosInfo.searchParams.keyword = searchResult.keyword;
+            videosInfo.pagination.currentPage = 1;
+            addPagesInfo(videos);
+
+            Slider.moveToPage(videos, videosInfo.pagination.pagesCount, videosInfo.pagination.currentPage);
         }
-
-        videos.push(...searchResult.items);
-        videosInfo.searchParams.nextPageToken = searchResult.nextPageToken;
-        videosInfo.searchParams.keyword = searchResult.keyword;
-        addPagesInfo(videos);
-
-        Slider.moveToPage(videos, videosInfo.pagination.pagesCount, videosInfo.pagination.currentPage);
     }
 
     videoManagerMethods.removeVideos = function () {
@@ -38,12 +40,15 @@ const VideoManager = (function () {
 
         videos = [];
         videosInfo.searchParams = {};
+        videosInfo.pagination = {};
 
-        Cards.update(videos);
+        Slider.removeAllPages();
     }
 
     videoManagerMethods.getMoreVideos = async function (keyword, pageToken) {
         const newVideos = await SearchService.getVideosByKeyword(keyword, pageToken);
+
+        videosInfo.searchParams.nextPageToken = newVideos.nextPageToken;
         videos.push(...newVideos.items);
         addPagesInfo(videos);
     }
@@ -68,7 +73,7 @@ const VideoManager = (function () {
         Slider.moveToPage(videos, videosInfo.pagination.pagesCount, videosInfo.pagination.currentPage);
     }
 
-    videoManagerMethods.updatePage = async function (page) {
+    videoManagerMethods.goToPage = async function (page) {
         const oldPage = videosInfo.pagination.currentPage;
         videosInfo.pagination.currentPage = page;
 
