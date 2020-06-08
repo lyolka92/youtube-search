@@ -60,6 +60,8 @@
   }
 
   &__info {
+    flex-basis: 320px;
+
     padding: $commonMargin * 2;
     line-height: $mainLineHeight;
     word-break: break-word;
