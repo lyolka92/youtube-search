@@ -1,199 +1,202 @@
-import Cards from "./cards";
-import VideoManager from "./video-manager";
-import PagingControls from "./paging-controls";
+import Cards from './cards';
+import VideoManager from './video-manager';
+import PagingControls from './paging-controls';
 
-const Slider = (function () {
-    const sliderMethods = {};
-    const slider = document.querySelector("#slider");
-    const sliderParams = {
-        prevPageNumber: null,
-        currentPageNumber: null,
-        nexPageNumber: null,
-        pagesCount: 0,
-        currentPages: [],
-        pages: [],
-        pagingControls: null
-    }
+const Slider = (function Slider() {
+	const sliderMethods = {};
+	const slider = document.querySelector('#slider');
+	const sliderParams = {
+		prevPageNumber: null,
+		currentPageNumber: null,
+		nexPageNumber: null,
+		pagesCount: 0,
+		currentPages: [],
+		pages: [],
+		pagingControls: null,
+	};
 
-    sliderMethods.moveToPage = function (videos, pagesCount, currentPageNumber) {
-        sliderParams.prevPageNumber = currentPageNumber - 1 === 0 ? null : currentPageNumber - 1;
-        sliderParams.currentPageNumber = currentPageNumber;
-        sliderParams.nextPageNumber = currentPageNumber + 1 > pagesCount ? null : currentPageNumber + 1;
-        sliderParams.pagesCount = pagesCount;
-        sliderParams.currentPages = [];
+	function getPageVideos(videos, pageNumber) {
+		return videos.filter((video) => video.pageNumber === pageNumber);
+	}
 
-        if (sliderParams.prevPageNumber) {
-            const prevPageVideos = getPageVideos(videos, sliderParams.prevPageNumber);
-            const pageInfo = addPageInfo(sliderParams.prevPageNumber, prevPageVideos, true);
-            sliderMethods.updatePage(pageInfo);
-        }
+	function addPageInfo(pageNumber, pageVideos, isHidden) {
+		const pageInfo = {
+			pageNumber,
+			pageVideos,
+			isHidden,
+		};
 
-        const currentPageVideos = getPageVideos(videos, sliderParams.currentPageNumber);
-        const pageInfo = addPageInfo(sliderParams.currentPageNumber, currentPageVideos, false);
-        sliderMethods.updatePage(pageInfo);
+		const existingPageInfo = sliderParams.pages.find((page) => page.pageNumber === pageInfo.pageNumber);
 
-        if (sliderParams.nextPageNumber) {
-            const nextPageVideos = getPageVideos(videos, sliderParams.nextPageNumber);
-            const pageInfo = addPageInfo(sliderParams.nextPageNumber, nextPageVideos, true);
-            sliderMethods.updatePage(pageInfo);
-        }
+		if (existingPageInfo) {
+			existingPageInfo.isHidden = pageInfo.isHidden;
+		} else {
+			sliderParams.pages.push(pageInfo);
+		}
 
-        removeOldPages();
+		sliderParams.currentPages.push(pageInfo);
 
-        if (!sliderParams.pagingControls) {
-            sliderParams.pagingControls = new PagingControls;
-            sliderParams.pagingControls.show();
-        }
+		return pageInfo;
+	}
 
-        const pageNumbers = sliderParams.pages.map(page => page.pageNumber);
-        sliderParams.pagingControls.update(pageNumbers, sliderParams.currentPageNumber);
-    }
+	function removeOldPages() {
+		const pageNumbers = sliderParams.pages.map((page) => page.pageNumber);
+		const currentPageNumbers = sliderParams.currentPages.map((page) => page.pageNumber);
 
-    sliderMethods.updatePage = function (pageInfo) {
-        const pageId = `page-${pageInfo.pageNumber}`;
-        const existingPageNode = slider.querySelector(`#${pageId}`);
+		const oldPageNumbers = pageNumbers.filter((pageNumber) => !currentPageNumbers.includes(pageNumber));
 
-        if (existingPageNode) {
-            const existingPageIsHidden = existingPageNode.classList.contains("page__hidden");
-            if (existingPageIsHidden && !pageInfo.isHidden) {
-                existingPageNode.classList.remove("page__hidden");
-            } else if (!existingPageIsHidden && pageInfo.isHidden) {
-                existingPageNode.classList.add("page__hidden");
-            }
-        } else {
-            sliderMethods.renderPage(pageInfo);
-        }
+		if (oldPageNumbers.length > 0) {
+			oldPageNumbers.forEach((pageNumber) => {
+				const pageIndex = pageNumbers.indexOf(pageNumber);
+				sliderParams.pages.splice(pageIndex, 1);
 
-        updateAnimationClasses(pageInfo);
-    }
+				const pageId = `page-${pageNumber}`;
+				const pageNode = slider.querySelector(`#${pageId}`);
+				pageNode.remove();
+			});
+		}
+	}
 
-    sliderMethods.renderPage = function (pageInfo) {
-        const page = document.createElement('div');
-        page.id = `page-${pageInfo.pageNumber}`;
-        page.classList.add("page");
-        if (pageInfo.isHidden) {
-            page.classList.add("page__hidden");
-        }
+	function updateAnimationClasses(pageInfo) {
+		const pageNode = slider.querySelector(`#page-${pageInfo.pageNumber}`);
+		const pageNodeIsPrev = pageNode.classList.contains('page__prev');
+		const pageNodeIsNext = pageNode.classList.contains('page__next');
 
-        const pageNumbers = sliderParams.pages.map(page => page.pageNumber);
-        const maxPageNumber = Math.max.apply(null, pageNumbers);
+		if (pageNodeIsPrev && pageInfo.pageNumber !== sliderParams.prevPageNumber) {
+			pageNode.classList.remove('page__prev');
+		}
 
-        if (pageInfo.pageNumber >= maxPageNumber) {
-            slider.appendChild(page);
-        } else {
-            slider.prepend(page);
-        }
+		if (pageNodeIsNext && pageInfo.pageNumber !== sliderParams.nextPageNumber) {
+			pageNode.classList.remove('page__next');
+		}
 
-        Cards.update(page, pageInfo.pageVideos);
-    }
+		if (pageInfo.pageNumber === sliderParams.prevPageNumber) {
+			pageNode.classList.add('page__prev');
+		} else if (pageInfo.pageNumber === sliderParams.nextPageNumber) {
+			pageNode.classList.add('page__next');
+		}
+	}
 
-    sliderMethods.removeAllPages = function () {
-        sliderParams.pages.forEach(page => {
-            const pageId = `page-${page.pageNumber}`;
-            const pageNode = slider.querySelector(`#${pageId}`);
-            pageNode.remove();
-        });
+	sliderMethods.moveToPage = function moveToPage(videos, pagesCount, currentPageNumber) {
+		sliderParams.prevPageNumber = currentPageNumber - 1 === 0 ? null : currentPageNumber - 1;
+		sliderParams.currentPageNumber = currentPageNumber;
+		sliderParams.nextPageNumber = currentPageNumber + 1 > pagesCount ? null : currentPageNumber + 1;
+		sliderParams.pagesCount = pagesCount;
+		sliderParams.currentPages = [];
 
-        sliderParams.prevPageNumber = null;
-        sliderParams.currentPageNumber = null;
-        sliderParams.nextPageNumber = null;
-        sliderParams.pages = [];
-        sliderParams.pagingControls.remove();
-        sliderParams.pagingControls = null;
-    }
+		if (sliderParams.prevPageNumber) {
+			const prevPageVideos = getPageVideos(videos, sliderParams.prevPageNumber);
+			const pageInfo = addPageInfo(sliderParams.prevPageNumber, prevPageVideos, true);
+			sliderMethods.updatePage(pageInfo);
+		}
 
-    function getPageVideos(videos, pageNumber) {
-        return videos.filter(video => video.pageNumber === pageNumber);
-    }
+		if (currentPageNumber) {
+			const currentPageVideos = getPageVideos(videos, sliderParams.currentPageNumber);
+			const pageInfo = addPageInfo(sliderParams.currentPageNumber, currentPageVideos, false);
+			sliderMethods.updatePage(pageInfo);
+		}
 
-    function addPageInfo(pageNumber, pageVideos, isHidden) {
-        const pageInfo = {
-            pageNumber: pageNumber,
-            pageVideos: pageVideos,
-            isHidden: isHidden
-        }
+		if (sliderParams.nextPageNumber) {
+			const nextPageVideos = getPageVideos(videos, sliderParams.nextPageNumber);
+			const pageInfo = addPageInfo(sliderParams.nextPageNumber, nextPageVideos, true);
+			sliderMethods.updatePage(pageInfo);
+		}
 
-        const existingPageInfo = sliderParams.pages.find(page => page.pageNumber === pageInfo.pageNumber);
+		removeOldPages();
 
-        if (existingPageInfo) {
-            existingPageInfo.isHidden = pageInfo.isHidden;
-        } else {
-            sliderParams.pages.push(pageInfo);
-        }
+		if (!sliderParams.pagingControls) {
+			sliderParams.pagingControls = new PagingControls();
+			sliderParams.pagingControls.show();
+		}
 
-        sliderParams.currentPages.push(pageInfo);
+		const pageNumbers = sliderParams.pages.map((page) => page.pageNumber);
+		sliderParams.pagingControls.update(pageNumbers, sliderParams.currentPageNumber);
+	};
 
-        return pageInfo;
-    }
+	sliderMethods.updatePage = function updatePage(pageInfo) {
+		const pageId = `page-${pageInfo.pageNumber}`;
+		const existingPageNode = slider.querySelector(`#${pageId}`);
 
-    function removeOldPages() {
-        const pageNumbers = sliderParams.pages.map(page => page.pageNumber);
-        const currentPageNumbers = sliderParams.currentPages.map(page => page.pageNumber);
+		if (existingPageNode) {
+			const existingPageIsHidden = existingPageNode.classList.contains('page__hidden');
+			if (existingPageIsHidden && !pageInfo.isHidden) {
+				existingPageNode.classList.remove('page__hidden');
+			} else if (!existingPageIsHidden && pageInfo.isHidden) {
+				existingPageNode.classList.add('page__hidden');
+			}
+		} else {
+			sliderMethods.renderPage(pageInfo);
+		}
 
-        const oldPageNumbers = pageNumbers.filter(pageNumber => !currentPageNumbers.includes(pageNumber));
+		updateAnimationClasses(pageInfo);
+	};
 
-        if (oldPageNumbers.length > 0) {
-            oldPageNumbers.forEach(pageNumber => {
-                const pageIndex = pageNumbers.indexOf(pageNumber);
-                sliderParams.pages.splice(pageIndex, 1);
+	sliderMethods.renderPage = function renderPage(pageInfo) {
+		const page = document.createElement('div');
+		page.id = `page-${pageInfo.pageNumber}`;
+		page.classList.add('page');
+		if (pageInfo.isHidden) {
+			page.classList.add('page__hidden');
+		}
 
-                const pageId = `page-${pageNumber}`;
-                const pageNode = slider.querySelector(`#${pageId}`);
-                pageNode.remove();
-            });
-        }
-    }
+		const pageNumbers = sliderParams.pages.map((p) => p.pageNumber);
+		const maxPageNumber = Math.max.apply(null, pageNumbers);
 
-    function updateAnimationClasses(pageInfo) {
-        const pageNode = slider.querySelector(`#page-${pageInfo.pageNumber}`);
-        const pageNodeIsPrev = pageNode.classList.contains("page__prev");
-        const pageNodeIsNext = pageNode.classList.contains("page__next");
+		if (pageInfo.pageNumber >= maxPageNumber) {
+			slider.appendChild(page);
+		} else {
+			slider.prepend(page);
+		}
 
-        if (pageNodeIsPrev && pageInfo.pageNumber !== sliderParams.prevPageNumber) {
-            pageNode.classList.remove("page__prev");
-        }
+		Cards.update(page, pageInfo.pageVideos);
+	};
 
-        if (pageNodeIsNext && pageInfo.pageNumber !== sliderParams.nextPageNumber) {
-            pageNode.classList.remove("page__next");
-        }
+	sliderMethods.removeAllPages = function removeAllPages() {
+		sliderParams.pages.forEach((page) => {
+			const pageId = `page-${page.pageNumber}`;
+			const pageNode = slider.querySelector(`#${pageId}`);
+			pageNode.remove();
+		});
 
-        if (pageInfo.pageNumber === sliderParams.prevPageNumber) {
-            pageNode.classList.add("page__prev");
-        } else if (pageInfo.pageNumber === sliderParams.nextPageNumber) {
-            pageNode.classList.add("page__next");
-        }
-    }
+		sliderParams.prevPageNumber = null;
+		sliderParams.currentPageNumber = null;
+		sliderParams.nextPageNumber = null;
+		sliderParams.pages = [];
+		sliderParams.pagingControls.remove();
+		sliderParams.pagingControls = null;
+	};
 
-    slider.addEventListener('mousedown', lock, false);
-    slider.addEventListener('touchstart', lock, false);
+	function unify(event) {
+		return event.changedTouches ? event.changedTouches[0] : event;
+	}
 
-    slider.addEventListener('mouseup', move, false);
-    slider.addEventListener('touchend', move, false);
+	let initialCoordinate = null;
 
-    function unify(event) {
-        return event.changedTouches ? event.changedTouches[0] : event
-    }
+	function lock(event) {
+		initialCoordinate = unify(event).clientX;
+	}
 
-    let initialCoordinate = null;
+	function move(event) {
+		if (initialCoordinate || initialCoordinate === 0) {
+			const distance = unify(event).clientX - initialCoordinate;
+			const direction = Math.sign(distance);
 
-    function lock(event) {
-        initialCoordinate = unify(event).clientX;
-    }
+			if ((sliderParams.currentPageNumber > 0 || direction < 0)
+				&& (sliderParams.currentPageNumber < sliderParams.pagesCount || direction > 0)) {
+				VideoManager.goToPage(sliderParams.currentPageNumber - direction);
+			}
 
-    function move(event) {
-        if (initialCoordinate || initialCoordinate === 0) {
-            let distance = unify(event).clientX - initialCoordinate;
-            let direction = Math.sign(distance);
+			initialCoordinate = null;
+		}
+	}
 
-            if ((sliderParams.currentPageNumber > 0 || direction < 0)
-                && (sliderParams.currentPageNumber < sliderParams.pagesCount || direction > 0))
-                VideoManager.goToPage(sliderParams.currentPageNumber - direction);
+	slider.addEventListener('mousedown', lock, false);
+	slider.addEventListener('touchstart', lock, false);
 
-            initialCoordinate = null
-        }
-    }
+	slider.addEventListener('mouseup', move, false);
+	slider.addEventListener('touchend', move, false);
 
-    return sliderMethods;
-})()
+	return sliderMethods;
+}());
 
 export default Slider;

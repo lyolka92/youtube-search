@@ -1,61 +1,64 @@
-const Cards = (function () {
-    const cardsMethods = {};
+const Cards = (function Cards() {
+	const cardsMethods = {};
 
-    cardsMethods.update = function (page, videos) {
-        if (!videos || videos.length <= 0) {
-            throw new Error("There is no videos to render cards");
-        }
-        renderCards(page, videos);
-    }
+	function fillTemplate(video) {
+		const {
+			videoUrl, author, uploadDate, viewCount, description, title,
+		} = video;
 
-    function renderCards(page, videos) {
-        videos.forEach(video => {
-            const videoNode = renderCard(video);
-            page.appendChild(videoNode);
-        });
-    }
+		let cutDescription = description.slice(0, 250);
+		if (cutDescription.length < description.length) {
+			cutDescription += '...';
+		}
 
-    function renderCard(video) {
-        const card = document.createElement('div');
-        card.innerHTML = fillTemplate(video);
-        card.querySelector(".video__header").style.backgroundImage = `url(${video.imgUrl})`;
-        card.id = `video-${video.id.videoId}`;
-        card.classList.add("video", "slider__item");
+		let cutTitle = title.slice(0, 100);
+		if (cutTitle.length < title.length) {
+			cutTitle += '...';
+		}
 
-        return card;
-    }
+		const date = new Date(uploadDate).toLocaleDateString();
 
-    function fillTemplate(video) {
-        const {videoUrl, author, uploadDate, viewCount, description, title} = video;
+		return `
+			<div class="video__header">
+				<h2 class="video__header-title">
+					<a href=${videoUrl} class="video__header-title-link" target="_blank" rel="noopener noreferrer">${cutTitle}</a>
+				</h2>
+			</div>
+			<div class="video__info">
+				<ul class="video__info-params">
+					<li class="video__info-params__author">${author}</li>
+					<li class="video__info-params__upload-date">${date}</li>
+					<li class="video__info-params__view-count">${viewCount}</li>
+				</ul>
+				<p class="video__info-description">${cutDescription}</p>
+			</div>`;
+	}
 
-        let cutDescription = description.slice(0, 250);
-        if (cutDescription.length < description.length) {
-            cutDescription += '...';
-        }
+	function renderCard(video) {
+		const card = document.createElement('div');
+		card.innerHTML = fillTemplate(video);
+		card.querySelector('.video__header').style.backgroundImage = `url(${video.imgUrl})`;
+		card.id = `video-${video.id.videoId}`;
+		card.classList.add('video', 'slider__item');
 
-        let cutTitle = title.slice(0, 100);
-        if (cutTitle.length < title.length) {
-            cutTitle += '...';
-        }
+		return card;
+	}
 
-        let date = new Date(uploadDate).toLocaleDateString();
+	function renderCards(page, videos) {
+		videos.forEach((video) => {
+			const videoNode = renderCard(video);
+			page.appendChild(videoNode);
+		});
+	}
 
-        return `<div class="video__header">
-                    <h2 class="video__header-title">
-                        <a href=${videoUrl} class="video__header-title-link" target="_blank" rel="noopener noreferrer">${cutTitle}</a>
-                    </h2>
-                </div>
-                <div class="video__info">
-                    <ul class="video__info-params">
-                        <li class="video__info-params__author">${author}</li>
-                        <li class="video__info-params__upload-date">${date}</li>
-                        <li class="video__info-params__view-count">${viewCount}</li>
-                    </ul>
-                    <p class="video__info-description">${cutDescription}</p>
-                </div>`;
-    }
+	cardsMethods.update = (page, videos) => {
+		if (!videos || videos.length <= 0) {
+			throw new Error('There is no videos to render cards');
+		}
+		renderCards(page, videos);
+	};
 
-    return cardsMethods;
-})();
+	return cardsMethods;
+}());
 
 export default Cards;

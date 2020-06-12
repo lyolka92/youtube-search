@@ -1,24 +1,24 @@
-const Loader = (function() {
-    const loaderClass = "loader";
+const Loader = (function Loader() {
+	const loaderClass = 'loader';
 
-    function Loader () {
-        this.loader = null;
-    }
+	function Spinner() {
+		this.loader = null;
+	}
 
-    Loader.prototype.show = function (parentElement) {
-        this.loader = document.createElement('div');
-        this.loader.classList.add(loaderClass);
-        parentElement.prepend(this.loader);
-    }
+	Spinner.prototype.show = function show(parentElement) {
+		this.loader = document.createElement('div');
+		this.loader.classList.add(loaderClass);
+		parentElement.prepend(this.loader);
+	};
 
-    Loader.prototype.remove = function () {
-        if (!this.loader) {
-            return;
-        }
-        this.loader.remove();
-    }
+	Spinner.prototype.remove = function remove() {
+		if (!this.loader) {
+			return;
+		}
+		this.loader.remove();
+	};
 
-    return Loader;
-})()
+	return Spinner;
+}());
 
 export default Loader;

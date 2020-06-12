@@ -1,99 +1,99 @@
-import VideoManager from "./video-manager";
+import VideoManager from './video-manager';
 
-const PagingControls = (function () {
-    const main = document.querySelector('#main');
+const PagingControls = (function PagingControls() {
+	const main = document.querySelector('#main');
 
-    function PagingControls() {
-        this.pageNumbers = [];
-        this.activePageNumber = 0;
-        this.navNode = null;
-    }
+	function addClassToActivePageControl(pageNumber) {
+		const activePagingControlId = `paging-control-${pageNumber}`;
+		const activePagingControlNode = this.navNode.querySelector(`#${activePagingControlId}`);
+		activePagingControlNode.classList.add('paging-controls__item__active');
+	}
 
-    PagingControls.prototype.show = function () {
-        const navNode = document.createElement('nav');
-        navNode.classList.add('paging-controls');
-        main.appendChild(navNode);
+	function removeClassFromActivePageControl() {
+		const activePagingControlId = `paging-control-${this.activePageNumber}`;
+		const activePagingControlNode = this.navNode.querySelector(`#${activePagingControlId}`);
+		activePagingControlNode.classList.remove('paging-controls__item__active');
+	}
 
-        this.navNode = navNode;
-    }
+	async function goToPage(event, pageNumber) {
+		event.preventDefault();
+		await VideoManager.goToPage(pageNumber);
+	}
 
-    PagingControls.prototype.update = function (newPageNumbers, newActivePageNumber) {
-        if (this.pageNumbers.length > 0) {
-            const boundRemoveClassFromActivePageControl = removeClassFromActivePageControl.bind(this);
-            boundRemoveClassFromActivePageControl();
+	function addPageControls(pageControls) {
+		pageControls.forEach((pageControlNumber) => {
+			const pageControlId = `paging-control-${pageControlNumber}`;
+			const relatedPageHref = `#page-${pageControlNumber}`;
 
-            const pageControlsToRemove = this.pageNumbers.filter(pageNumber => !newPageNumbers.includes(pageNumber));
-            const boundRemovePageControls = removePageControls.bind(this);
-            boundRemovePageControls(pageControlsToRemove);
-        }
+			const pageControlNode = document.createElement('a');
+			pageControlNode.classList.add('paging-controls__item');
+			pageControlNode.id = pageControlId;
+			pageControlNode.href = relatedPageHref;
+			pageControlNode.innerHTML = pageControlNumber;
+			pageControlNode.addEventListener('click', () => goToPage(event, pageControlNumber));
 
-        const pageControlsToAdd = this.pageNumbers.length > 0 ?
-            newPageNumbers.filter(pageNumber => !this.pageNumbers.includes(pageNumber)) :
-            newPageNumbers;
-        const boundAddPageControls = addPageControls.bind(this);
-        boundAddPageControls(pageControlsToAdd);
+			const maxPageNumber = Math.max(...this.pageNumbers);
+			if (pageControlNumber >= maxPageNumber) {
+				this.navNode.appendChild(pageControlNode);
+			} else {
+				this.navNode.prepend(pageControlNode);
+			}
+		});
+	}
 
-        const boundAddClassToActivePageControl = addClassToActivePageControl.bind(this);
-        boundAddClassToActivePageControl(newActivePageNumber);
+	function removePageControls(pageControls) {
+		pageControls.forEach((pageControlNumber) => {
+			const pageControlId = `paging-control-${pageControlNumber}`;
+			const pageControlNode = this.navNode.querySelector(`#${pageControlId}`);
+			pageControlNode.remove();
+		});
+	}
 
-        this.pageNumbers = newPageNumbers;
-        this.activePageNumber = newActivePageNumber;
-    }
+	function PagingController() {
+		this.pageNumbers = [];
+		this.activePageNumber = 0;
+		this.navNode = null;
+	}
 
-    PagingControls.prototype.remove = function () {
-        this.pageNumbers = [];
-        this.activePageNumber = 0;
-        this.navNode.remove();
-        this.navNode = null;
-    }
+	PagingController.prototype.show = function show() {
+		const navNode = document.createElement('nav');
+		navNode.classList.add('paging-controls');
+		main.appendChild(navNode);
 
-    function addClassToActivePageControl(pageNumber) {
-        const activePagingControlId = `paging-control-${pageNumber}`;
-        const activePagingControlNode = this.navNode.querySelector(`#${activePagingControlId}`);
-        activePagingControlNode.classList.add("paging-controls__item__active");
-    }
+		this.navNode = navNode;
+	};
 
-    function removeClassFromActivePageControl() {
-        const activePagingControlId = `paging-control-${this.activePageNumber}`;
-        const activePagingControlNode = this.navNode.querySelector(`#${activePagingControlId}`);
-        activePagingControlNode.classList.remove("paging-controls__item__active");
-    }
+	PagingController.prototype.update = function update(newPageNumbers, newActivePageNumber) {
+		if (this.pageNumbers.length > 0) {
+			const boundRemoveClassFromActivePageControl = removeClassFromActivePageControl.bind(this);
+			boundRemoveClassFromActivePageControl();
 
-    function addPageControls(pageControls) {
-        pageControls.forEach(pageControlNumber => {
-            const pageControlId = `paging-control-${pageControlNumber}`;
-            const relatedPageHref = `#page-${pageControlNumber}`;
+			const pageControlsToRemove = this.pageNumbers.filter((pageNumber) => !newPageNumbers.includes(pageNumber));
+			const boundRemovePageControls = removePageControls.bind(this);
+			boundRemovePageControls(pageControlsToRemove);
+		}
 
-            const pageControlNode = document.createElement('a');
-            pageControlNode.classList.add("paging-controls__item");
-            pageControlNode.id = pageControlId;
-            pageControlNode.href = relatedPageHref;
-            pageControlNode.innerHTML = pageControlNumber;
-            pageControlNode.addEventListener('click', () => goToPage(event, pageControlNumber));
+		const pageControlsToAdd = this.pageNumbers.length > 0
+			? newPageNumbers.filter((pageNumber) => !this.pageNumbers.includes(pageNumber))
+			: newPageNumbers;
+		const boundAddPageControls = addPageControls.bind(this);
+		boundAddPageControls(pageControlsToAdd);
 
-            const maxPageNumber = Math.max(...this.pageNumbers);
-            if (pageControlNumber >= maxPageNumber) {
-                this.navNode.appendChild(pageControlNode);
-            } else {
-                this.navNode.prepend(pageControlNode);
-            }
-        });
-    }
+		const boundAddClassToActivePageControl = addClassToActivePageControl.bind(this);
+		boundAddClassToActivePageControl(newActivePageNumber);
 
-    function removePageControls(pageControls) {
-        pageControls.forEach(pageControlNumber => {
-            const pageControlId = `paging-control-${pageControlNumber}`;
-            const pageControlNode = this.navNode.querySelector(`#${pageControlId}`);
-            pageControlNode.remove();
-        });
-    }
+		this.pageNumbers = newPageNumbers;
+		this.activePageNumber = newActivePageNumber;
+	};
 
-    async function goToPage(event, pageNumber) {
-        event.preventDefault();
-        await VideoManager.goToPage(pageNumber);
-    }
+	PagingController.prototype.remove = function remove() {
+		this.pageNumbers = [];
+		this.activePageNumber = 0;
+		this.navNode.remove();
+		this.navNode = null;
+	};
 
-    return PagingControls;
-})();
+	return PagingController;
+}());
 
 export default PagingControls;

@@ -1,0 +1,38 @@
+{
+  "env": {
+	"browser": true,
+	"es2020": true
+  },
+  "extends": [
+	"airbnb-base"
+  ],
+  "parserOptions": {
+	"ecmaVersion": 11,
+	"sourceType": "module"
+  },
+  "rules": {
+	"semi": [
+	  "error",
+	  "always"
+	],
+	"quotes": [
+	  "error",
+	  "single"
+	],
+	"indent": [
+	  "error",
+	  "tab"
+	],
+	"no-tabs": 0,
+	"func-names": [
+	  "warn",
+	  "as-needed"
+	],
+	"max-len": [
+	  "error",
+	  {
+		"code": 130
+	  }
+	]
+  }
+}
