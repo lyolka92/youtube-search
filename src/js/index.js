@@ -1,6 +1,6 @@
 import "../scss/main.scss";
 
-import Finder from "./modules/finder";
+import {Finder} from "./modules/finder";
 
 const searchForm = new Finder();
 searchForm.show();

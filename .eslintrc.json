@@ -23,16 +23,17 @@
 	  "error",
 	  "tab"
 	],
-	"no-tabs": 0,
+	"no-tabs": "off",
 	"func-names": [
 	  "warn",
 	  "as-needed"
 	],
 	"max-len": [
-	  "error",
+	  "warn",
 	  {
 		"code": 130
 	  }
-	]
+	],
+	"import/prefer-default-export": "off"
   }
 }

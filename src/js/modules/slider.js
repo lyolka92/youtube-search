@@ -1,6 +1,6 @@
-import Cards from './cards';
 import VideoManager from './video-manager';
 import PagingControls from './paging-controls';
+import {updateCards} from "./cards";
 
 const Slider = (function Slider() {
 	const sliderMethods = {};
@@ -148,7 +148,7 @@ const Slider = (function Slider() {
 			slider.prepend(page);
 		}
 
-		Cards.update(page, pageInfo.pageVideos);
+		updateCards(page, pageInfo.pageVideos)
 	};
 
 	sliderMethods.removeAllPages = function removeAllPages() {
