@@ -1,6 +1,5 @@
 const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const CopyWebpackPlugin = require("copy-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const Dotenv = require("dotenv-webpack");
 
@@ -29,12 +28,6 @@ module.exports = {
             exclude: /node_modules/,
             loader: 'babel-loader'
         },{
-            test: /\.(png|jpg|gif|svg)$/,
-            loader: 'file-loader',
-            options: {
-                name: '[name].[ext]'
-            }
-        }, {
             test: /\.scss$/,
             use: [
                 'style-loader',
@@ -61,11 +54,6 @@ module.exports = {
     plugins: [
         new MiniCssExtractPlugin({
             filename: `${PATHS.assets}css/[name].css`
-        }),
-        new CopyWebpackPlugin({
-            patterns: [
-                { from: `${PATHS.src}/img`,     to: `${PATHS.assets}img` }
-            ],
         }),
         new HtmlWebpackPlugin({
             hash: false,
