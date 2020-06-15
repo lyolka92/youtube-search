@@ -5,9 +5,10 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const Dotenv = require("dotenv-webpack");
 
 const PATHS = {
-    src: path.join(__dirname, '../src'),
-    dist: path.join(__dirname, '../dist'),
-    assets: 'assets/'
+	src: path.join(__dirname, '../src'),
+	dist: path.join(__dirname, '../dist'),
+	assets: 'assets/',
+	config: 'config/'
 }
 
 module.exports = {
@@ -15,8 +16,8 @@ module.exports = {
         paths: PATHS
     },
     entry: {
-        app: PATHS.src
-    },
+		app: `${PATHS.src}/js`,
+	},
     output: {
         filename: `${PATHS.assets}js/[name].js`,
         path: PATHS.dist,
@@ -46,7 +47,7 @@ module.exports = {
                     options: {
                         sourceMap: true,
                         config: {
-                            path: `${PATHS.src}/js/postcss.config.js`
+							path: `${PATHS.config}postcss.config.js`
                         }
                     }
                 }, {
