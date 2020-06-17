@@ -1,9 +1,6 @@
-import SearchService from './search-service';
-import Loader from './loader';
-import VideoManager from './video-manager';
+import {Spinner} from './spinner';
+import {VideoManager} from './video-manager';
 
-const header = document.getElementById('header');
-const main = document.getElementById('main');
 const searchFormContentTemplate = `
 		<input class="search__input" id="search__input" type="text" aria-label="search" placeholder="Search" required>
         <button class="search__button" type="submit" aria-label="search">
@@ -18,40 +15,40 @@ const searchFormContentTemplate = `
         </button>`;
 
 export class Finder {
-	constructor() {
+	constructor(parentNode) {
 		this.searchForm = null;
+		this.parentNode = parentNode;
+		this.videoManager = new VideoManager();
+		this.render();
+	}
+
+	render() {
+		this.searchForm = document.createElement('form');
+		this.searchForm.classList.add('search');
+		this.searchForm.innerHTML = searchFormContentTemplate;
+
+		this.parentNode.append(this.searchForm);
+
+		this.addListener();
+	}
+
+	addListener() {
+		const searchInput = this.searchForm.querySelector('.search__input');
+
+		this.searchForm.addEventListener('submit', async (event) => {
+			await this.search(event, searchInput);
+		});
+	}
+
+	async search(event, searchInput) {
+		event.preventDefault();
+
+		const main = document.getElementById('main');
+		const searchSpinner = new Spinner(main);
+
+		const searchRequest = searchInput.value;
+		await this.videoManager.getNewVideos(searchRequest);
+
+		searchSpinner.remove();
 	}
 }
-
-Finder.prototype.addListener = function addListener() {
-	const searchInput = this.searchForm.querySelector('.search__input');
-
-	this.searchForm.addEventListener('submit', async (event) => {
-		const searchResults = await this.search(event, searchInput);
-		return searchResults;
-	});
-};
-
-Finder.prototype.search = async function search(event, searchInput) {
-	event.preventDefault();
-
-	const searchLoader = new Loader();
-	searchLoader.show(main);
-
-	const searchRequest = searchInput.value;
-	const searchResult = await SearchService.getVideosByKeyword(searchRequest);
-
-	VideoManager.addVideos(searchResult);
-
-	searchLoader.remove();
-};
-
-Finder.prototype.show = function show() {
-	this.searchForm = document.createElement('form');
-	this.searchForm.classList.add('search');
-	this.searchForm.innerHTML = searchFormContentTemplate;
-
-	header.append(this.searchForm);
-
-	this.addListener();
-};
