@@ -1,5 +1,5 @@
 import {Spinner} from './spinner';
-import {VideoManager} from './video-manager';
+import {getNewVideos} from './video-manager';
 
 const searchFormContentTemplate = `
 		<input class="search__input" id="search__input" type="text" aria-label="search" placeholder="Search" required>
@@ -18,7 +18,6 @@ export class Finder {
 	constructor(parentNode) {
 		this.searchForm = null;
 		this.parentNode = parentNode;
-		this.videoManager = new VideoManager();
 		this.render();
 	}
 
@@ -47,7 +46,7 @@ export class Finder {
 		const searchSpinner = new Spinner(main);
 
 		const searchRequest = searchInput.value;
-		await this.videoManager.getNewVideos(searchRequest);
+		await getNewVideos(searchRequest);
 
 		searchSpinner.remove();
 	}

@@ -3,18 +3,20 @@
 .slider {
   position: relative;
 
-  display: flex;
-  justify-content: space-between;
+  &__pages {
+	display: flex;
+	justify-content: space-between;
 
-  @media (max-width: $tabletWidth) {
-    justify-content: center;
+	@media (max-width: $tabletWidth) {
+	  justify-content: center;
+	}
+
+	width: 100%;
+	padding: $commonMargin * 2;
+	box-sizing: border-box;
+
+	transform-style: preserve-3d;
   }
-
-  width: 100%;
-  padding: $commonMargin * 2;
-  box-sizing: border-box;
-
-  transform-style: preserve-3d;
 
   &__item {
     margin-left: $commonMargin;

@@ -1,116 +1,115 @@
-import Slider from './slider';
-import SearchService from './search-service';
+import {Slider} from './slider';
+import {getVideosByKeyword} from './search-service';
 
-const VideoManager = (function VideoManager() {
-	const videoManagerMethods = {};
+let videos = [];
+const videosInfo = {
+	searchParams: {
+		nextPageToken: null,
+		keyword: '',
+	},
+	pagination: {
+		pagesCount: 0,
+		videosPerPage: 0,
+		currentPage: 1,
+	},
+};
 
-	let videos = [];
-	const videosInfo = {
-		searchParams: {
-			nextPageToken: null,
-			keyword: '',
-		},
-		pagination: {
-			pagesCount: 0,
-			videosPerPage: 0,
-			currentPage: 1,
-		},
-	};
+const main = document.getElementById('main');
+const slider = new Slider(main);
 
-	function addPagesInfo() {
-		const videosCount = videos.length;
-		const screenWidth = window.screen.width;
+export async function getNewVideos(searchRequest) {
+	const searchResult = await getVideosByKeyword(searchRequest);
 
-		switch (true) {
-			case screenWidth >= 1280:
-				videosInfo.pagination.videosPerPage = 4;
-				break;
-			case screenWidth >= 910:
-				videosInfo.pagination.videosPerPage = 3;
-				break;
-			case screenWidth >= 610:
-				videosInfo.pagination.videosPerPage = 2;
-				break;
-			default:
-				videosInfo.pagination.videosPerPage = 1;
-				break;
-		}
-
-		videosInfo.pagination.pagesCount = Math.ceil(videosCount / videosInfo.pagination.videosPerPage);
-
-		videos.forEach((video, index) => {
-			video.pageNumber = Math.floor((index + videosInfo.pagination.videosPerPage) / videosInfo.pagination.videosPerPage);
-		});
+	if (videos.length > 0) {
+		removeVideos();
 	}
 
-	videoManagerMethods.addVideos = function addVideos(searchResult) {
-		if (videos.length > 0 && videosInfo.searchParams.keyword !== searchResult.keyword) {
-			const tempSearchResult = {...searchResult};
-			videoManagerMethods.removeVideos();
-			videoManagerMethods.addVideos(tempSearchResult);
-		} else {
-			videos.push(...searchResult.items);
-			videosInfo.searchParams.nextPageToken = searchResult.nextPageToken;
-			videosInfo.searchParams.keyword = searchResult.keyword;
-			videosInfo.pagination.currentPage = 1;
-			addPagesInfo();
+	videosInfo.searchParams.keyword = searchResult.keyword;
+	videosInfo.pagination.currentPage = 1;
+	addVideos(searchResult);
 
-			Slider.moveToPage(videos, videosInfo.pagination.pagesCount, videosInfo.pagination.currentPage);
-		}
-	};
+	slider.moveToPage(videos, videosInfo.pagination.pagesCount, videosInfo.pagination.currentPage);
+}
 
-	videoManagerMethods.removeVideos = function removeVideos() {
-		if (!videos) {
-			throw new Error('There is no videos to remove');
-		}
+async function getMoreVideos(keyword, pageToken) {
+	const searchResult = await getVideosByKeyword(keyword, pageToken);
+	addVideos(searchResult);
+}
 
-		videos = [];
-		videosInfo.searchParams = {};
-		videosInfo.pagination = {};
+function addVideos(searchResult) {
+	videos.push(...searchResult.items);
+	videosInfo.searchParams.nextPageToken = searchResult.nextPageToken;
 
-		Slider.removeAllPages();
-	};
+	addPagesInfo();
+}
 
-	videoManagerMethods.getMoreVideos = async function getMoreVideos(keyword, pageToken) {
-		const newVideos = await SearchService.getVideosByKeyword(keyword, pageToken);
+function removeVideos() {
+	if (!videos) {
+		console.log('There is no videos to remove');
+	}
 
-		videosInfo.searchParams.nextPageToken = newVideos.nextPageToken;
-		videos.push(...newVideos.items);
-		addPagesInfo();
-	};
+	videos = [];
+	videosInfo.searchParams = {};
+	videosInfo.pagination = {};
 
-	videoManagerMethods.moveNext = async function moveNext() {
-		if (videosInfo.pagination.currentPage > videosInfo.pagination.pagesCount) {
-			throw new Error('This is the last page');
-		}
+	slider.removeAllPages();
+}
 
-		if (videosInfo.pagination.currentPage >= videosInfo.pagination.pagesCount - 2) {
-			await videoManagerMethods.getMoreVideos(videosInfo.searchParams.keyword, videosInfo.searchParams.nextPageToken);
-		}
+export async function goToPage(pageNumber) {
+	const oldPageNumber = videosInfo.pagination.currentPage;
+	videosInfo.pagination.currentPage = pageNumber;
 
-		Slider.moveToPage(videos, videosInfo.pagination.pagesCount, videosInfo.pagination.currentPage);
-	};
+	if (pageNumber === oldPageNumber) {
+		console.log('Что-то не то');
+	} else if (pageNumber > oldPageNumber) {
+		await moveNext();
+	} else if (pageNumber < oldPageNumber) {
+		movePrev();
+	}
+}
 
-	videoManagerMethods.movePrev = function movePrev() {
-		if (videosInfo.pagination.currentPage < 1) {
-			throw new Error('This is the first page');
-		}
+async function moveNext() {
+	if (videosInfo.pagination.currentPage > videosInfo.pagination.pagesCount) {
+		console.log('This is the last page');
+	}
 
-		Slider.moveToPage(videos, videosInfo.pagination.pagesCount, videosInfo.pagination.currentPage);
-	};
+	if (videosInfo.pagination.currentPage >= videosInfo.pagination.pagesCount - 2) {
+		await getMoreVideos(videosInfo.searchParams.keyword, videosInfo.searchParams.nextPageToken);
+	}
 
-	videoManagerMethods.goToPage = async function goToPage(page) {
-		const oldPage = videosInfo.pagination.currentPage;
-		videosInfo.pagination.currentPage = page;
+	slider.moveToPage(videos, videosInfo.pagination.pagesCount, videosInfo.pagination.currentPage);
+}
 
-		if (page > oldPage) {
-			await videoManagerMethods.moveNext();
-		} else if (page < oldPage) {
-			videoManagerMethods.movePrev();
-		}
-	};
+function movePrev() {
+	if (videosInfo.pagination.currentPage < 1) {
+		console.log('This is the first page');
+	}
 
-	return videoManagerMethods;
-}());
+	slider.moveToPage(videos, videosInfo.pagination.pagesCount, videosInfo.pagination.currentPage);
+}
 
-export default VideoManager;
+function addPagesInfo() {
+	const videosCount = videos.length;
+	const screenWidth = window.innerWidth;
+
+	switch (true) {
+		case screenWidth >= 1280:
+			videosInfo.pagination.videosPerPage = 4;
+			break;
+		case screenWidth >= 910:
+			videosInfo.pagination.videosPerPage = 3;
+			break;
+		case screenWidth >= 610:
+			videosInfo.pagination.videosPerPage = 2;
+			break;
+		default:
+			videosInfo.pagination.videosPerPage = 1;
+			break;
+	}
+
+	videosInfo.pagination.pagesCount = Math.ceil(videosCount / videosInfo.pagination.videosPerPage);
+
+	videos.forEach((video, index) => {
+		video.pageNumber = Math.floor((index + videosInfo.pagination.videosPerPage) / videosInfo.pagination.videosPerPage);
+	});
+}
