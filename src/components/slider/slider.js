@@ -1,6 +1,6 @@
-import {goToPage} from './video-manager';
-import {PagingControls} from './paging-controls';
-import {updateCards} from './cards';
+import {goToPage} from '../video-manager/video-manager';
+import {PagingControl} from './slider_paging-control';
+import {updateCards} from './slider_cards';
 
 export class Slider {
 	constructor(parentNode) {
@@ -29,7 +29,7 @@ export class Slider {
 
 		this.parentNode.appendChild(this.node);
 		this.node.appendChild(this.pagesNode);
-		this.pagingControls = new PagingControls(this.node, changeActivePage);
+		this.pagingControls = new PagingControl(this.node, changeActivePage);
 		this.addEventListeners();
 	}
 

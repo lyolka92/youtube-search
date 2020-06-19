@@ -15,7 +15,7 @@ module.exports = {
         paths: PATHS
     },
     entry: {
-		app: `${PATHS.src}/js`,
+		app: `${PATHS.src}/js/app.js`,
 	},
     output: {
         filename: `${PATHS.assets}js/[name].js`,
@@ -52,17 +52,17 @@ module.exports = {
         ]
     },
     plugins: [
-        new MiniCssExtractPlugin({
-            filename: `${PATHS.assets}css/[name].css`
-        }),
-        new HtmlWebpackPlugin({
-            hash: false,
-            template: `${PATHS.src}/index.html`,
-            filename: 'index.html'
-        }),
-        new Dotenv({
-            path: './.env',
-            safe: true
-        })
-    ]
+		new MiniCssExtractPlugin({
+			filename: `${PATHS.assets}css/[name].css`
+		}),
+		new HtmlWebpackPlugin({
+			hash: false,
+			template: `${PATHS.src}/layout/index.html`,
+			filename: 'index.html'
+		}),
+		new Dotenv({
+			path: './config/.env',
+			safe: false
+		})
+	]
 }

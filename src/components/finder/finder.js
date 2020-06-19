@@ -1,5 +1,5 @@
-import {Spinner} from './spinner';
-import {getNewVideos} from './video-manager';
+import {Spinner} from '../spinner/spinner';
+import {getNewVideos} from '../video-manager/video-manager';
 
 const searchFormContentTemplate = `
 		<input class="search__input" id="search__input" type="text" aria-label="search" placeholder="Search" required>

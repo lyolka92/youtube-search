@@ -1,4 +1,4 @@
-export class PagingControls {
+export class PagingControl {
 	constructor(parentNode, goToPageCallback) {
 		this.pageNumbers = [];
 		this.activePageNumber = 0;

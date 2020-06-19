@@ -1,5 +1,5 @@
-import {Slider} from './slider';
-import {getVideosByKeyword} from './search-service';
+import {Slider} from '../slider/slider';
+import {getVideosByKeyword} from '../../api/search-service';
 
 let videos = [];
 const videosInfo = {

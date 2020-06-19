@@ -1,54 +1,12 @@
 @import "utils/mixins";
 @import "utils/vars";
 
-html {
-  font-family: $mainFont;
-  line-height: $mainLineHeight;
-  font-size: $mainFontSize;
-  color: $mainFontColor;
-  height: 100%;
-  background-color: #eee;
+@import "common/label";
+@import "common/common";
 
-  @media screen and (max-width: $desktopWidth) {
-    font-size: 16px;
-  }
-  @media screen and (max-width: $tabletWidth) {
-    font-size: 15px;
-  }
-  @media screen and (max-width: $phoneWidth) {
-    font-size: 14px;
-  }
-}
-
-body, h1, h2 {
-  margin: 0;
-}
-
-p {
-  margin: $commonMargin/2 0;
-}
-
-header {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 60px;
-  margin: $commonMargin * 2;
-  margin-bottom: $commonMargin;
-
-  @media screen and (max-width: $tabletWidth) {
-    justify-content: flex-end;
-  }
-}
-
-main {
-  overflow: hidden;
-}
-
-@import "modules/label";
-@import "modules/finder";
-@import "modules/slider";
-@import "modules/page";
-@import "modules/cards";
-@import "modules/paging-controls";
-@import "modules/spinner";
+@import "../components/finder/finder";
+@import "../components/slider/slider";
+@import "../components/slider/slider_page";
+@import "../components/slider/slider_cards";
+@import "../components/slider/slider_paging-control";
+@import "../components/spinner/spinner";
