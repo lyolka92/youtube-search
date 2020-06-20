@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+	 contentScriptType="application/ecmascript" contentStyleType="text/css" height="810px" preserveAspectRatio="none"
+	 style="width:996px;height:810px;" version="1.1" viewBox="0 0 996 810" width="996px" zoomAndPan="magnify">
+	<defs>
+		<filter height="300%" id="f6a68ntcbpvav" width="300%" x="-1" y="-1">
+			<feGaussianBlur result="blurOut" stdDeviation="4.0"/>
+			<feColorMatrix in="blurOut" result="blurOut2" type="matrix"
+						   values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/>
+			<feOffset dx="8.0" dy="8.0" in="blurOut2" result="blurOut3"/>
+			<feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/>
+		</filter>
+	</defs>
+	<g><!--MD5=[e5bc92b22bc75a78327b8951037f1652]
+cluster Slider-->
+		<polygon fill="#FFFFFF" filter="url(#f6a68ntcbpvav)"
+				 points="368,386,462,386,476,430.9766,886,430.9766,886,786,368,786,368,386"
+				 style="stroke: #000000; stroke-width: 3.0;"/>
+		<line style="stroke: #000000; stroke-width: 3.0;" x1="368" x2="476" y1="430.9766" y2="430.9766"/>
+		<text fill="#000000" font-family="sans-serif" font-size="28" font-weight="bold" lengthAdjust="spacingAndGlyphs"
+			  textLength="82" x="376" y="417.0703">Slider
+		</text><!--MD5=[d7a5c77c0326e13cb0d0f5382ea726b9]
+entity Pages-->
+		<rect fill="#FEFECE" filter="url(#f6a68ntcbpvav)" height="72.9766" style="stroke: #A80036; stroke-width: 3.0;"
+			  width="120" x="400" y="456"/>
+		<rect fill="#FEFECE" height="10" style="stroke: #A80036; stroke-width: 3.0;" width="20" x="390" y="466"/>
+		<rect fill="#FEFECE" height="10" style="stroke: #A80036; stroke-width: 3.0;" width="20" x="390" y="508.9766"/>
+		<text fill="#000000" font-family="sans-serif" font-size="28" lengthAdjust="spacingAndGlyphs" textLength="80"
+			  x="420" y="503.0703">Pages
+		</text><!--MD5=[c8d6e01ba07ccd643c1655eb36c1f60e]
+entity PagingControls-->
+		<rect fill="#FEFECE" filter="url(#f6a68ntcbpvav)" height="72.9766" style="stroke: #A80036; stroke-width: 3.0;"
+			  width="252" x="480" y="682"/>
+		<rect fill="#FEFECE" height="10" style="stroke: #A80036; stroke-width: 3.0;" width="20" x="470" y="692"/>
+		<rect fill="#FEFECE" height="10" style="stroke: #A80036; stroke-width: 3.0;" width="20" x="470" y="734.9766"/>
+		<text fill="#000000" font-family="sans-serif" font-size="28" lengthAdjust="spacingAndGlyphs" textLength="212"
+			  x="500" y="729.0703">PagingControls
+		</text><!--MD5=[cb22b69a699a8ccb347b5b28387d0bba]
+entity Cards-->
+		<rect fill="#FEFECE" filter="url(#f6a68ntcbpvav)" height="72.9766" style="stroke: #A80036; stroke-width: 3.0;"
+			  width="120" x="734" y="456"/>
+		<rect fill="#FEFECE" height="10" style="stroke: #A80036; stroke-width: 3.0;" width="20" x="724" y="466"/>
+		<rect fill="#FEFECE" height="10" style="stroke: #A80036; stroke-width: 3.0;" width="20" x="724" y="508.9766"/>
+		<text fill="#000000" font-family="sans-serif" font-size="28" lengthAdjust="spacingAndGlyphs" textLength="80"
+			  x="754" y="503.0703">Cards
+		</text><!--MD5=[cd932ef8693296616feab76e5ebb30c5]
+entity Finder-->
+		<rect fill="#FEFECE" filter="url(#f6a68ntcbpvav)" height="72.9766" style="stroke: #A80036; stroke-width: 3.0;"
+			  width="128" x="12" y="188"/>
+		<rect fill="#FEFECE" height="10" style="stroke: #A80036; stroke-width: 3.0;" width="20" x="2" y="198"/>
+		<rect fill="#FEFECE" height="10" style="stroke: #A80036; stroke-width: 3.0;" width="20" x="2" y="240.9766"/>
+		<text fill="#000000" font-family="sans-serif" font-size="28" lengthAdjust="spacingAndGlyphs" textLength="88"
+			  x="32" y="235.0703">Finder
+		</text><!--MD5=[7b053399c5ca59b2945c51b3a09ee22f]
+entity VideoManager-->
+		<rect fill="#FEFECE" filter="url(#f6a68ntcbpvav)" height="72.9766" style="stroke: #A80036; stroke-width: 3.0;"
+			  width="238" x="341" y="188"/>
+		<rect fill="#FEFECE" height="10" style="stroke: #A80036; stroke-width: 3.0;" width="20" x="331" y="198"/>
+		<rect fill="#FEFECE" height="10" style="stroke: #A80036; stroke-width: 3.0;" width="20" x="331" y="240.9766"/>
+		<text fill="#000000" font-family="sans-serif" font-size="28" lengthAdjust="spacingAndGlyphs" textLength="198"
+			  x="361" y="235.0703">VideoManager
+		</text>
+		<path d="M361,16 L361,66.6211 A0,0 0 0 0 361,66.6211 L452,66.6211 L460,187.54 L468,66.6211 L559,66.6211 A0,0 0 0 0 559,66.6211 L559,36 L539,16 L361,16 A0,0 0 0 0 361,16 "
+			  fill="#FBFB77" filter="url(#f6a68ntcbpvav)" style="stroke: #A80036; stroke-width: 2.0;"/>
+		<path d="M539,16 L539,36 L559,36 L539,16 " fill="#FBFB77" style="stroke: #A80036; stroke-width: 2.0;"/>
+		<text fill="#000000" font-family="sans-serif" font-size="26" lengthAdjust="spacingAndGlyphs" textLength="156"
+			  x="373" y="51.1367">data storage
+		</text><!--MD5=[13149f2504b5250fa675d4ece684af3f]
+entity SearchService-->
+		<rect fill="#FEFECE" filter="url(#f6a68ntcbpvav)" height="72.9766" style="stroke: #A80036; stroke-width: 3.0;"
+			  width="228" x="746" y="188"/>
+		<rect fill="#FEFECE" height="10" style="stroke: #A80036; stroke-width: 3.0;" width="20" x="736" y="198"/>
+		<rect fill="#FEFECE" height="10" style="stroke: #A80036; stroke-width: 3.0;" width="20" x="736" y="240.9766"/>
+		<text fill="#000000" font-family="sans-serif" font-size="28" lengthAdjust="spacingAndGlyphs" textLength="188"
+			  x="766" y="235.0703">SearchService
+		</text><!--MD5=[18ef289d3a2c7ccfc9c89e499614ae48]
+link Finder to VideoManager-->
+		<path d="M140.28,224 C191.96,224 266.22,224 330.18,224 " fill="none" id="Finder-&gt;VideoManager"
+			  style="stroke: #A80036; stroke-width: 2.0;"/>
+		<polygon fill="#A80036" points="340.36,224,322.36,216,330.36,224,322.36,232,340.36,224"
+				 style="stroke: #A80036; stroke-width: 2.0;"/>
+		<text fill="#000000" font-family="sans-serif" font-size="26" lengthAdjust="spacingAndGlyphs" textLength="128"
+			  x="176.5" y="211.1367">user input
+		</text><!--MD5=[3be512ec0a6e2b01ece7519723a04efb]
+link VideoManager to SearchService-->
+		<path d="M579.48,224 C628.68,224 685.72,224 735.44,224 " fill="none" id="VideoManager-&gt;SearchService"
+			  style="stroke: #A80036; stroke-width: 2.0;"/>
+		<polygon fill="#A80036" points="745.94,224,727.94,216,735.94,224,727.94,232,745.94,224"
+				 style="stroke: #A80036; stroke-width: 2.0;"/>
+		<text fill="#000000" font-family="sans-serif" font-size="26" lengthAdjust="spacingAndGlyphs" textLength="94"
+			  x="615.5" y="211.1367">request
+		</text><!--MD5=[c81a5bd8e83176bc8c0c6fef9648a497]
+link SearchService to VideoManager-->
+		<path d="M745.88,256.98 C732.38,259.86 718.7,262.32 705.5,264 C667.58,268.82 657.44,268.68 619.5,264 C609.72,262.8 599.68,261.18 589.64,259.3 "
+			  fill="none" id="SearchService-&gt;VideoManager" style="stroke: #A80036; stroke-width: 2.0;"/>
+		<polygon fill="#A80036" points="579.6,257.34,595.7386,268.6336,589.4156,259.2518,598.7974,252.9287,579.6,257.34"
+				 style="stroke: #A80036; stroke-width: 2.0;"/>
+		<text fill="#000000" font-family="sans-serif" font-size="26" lengthAdjust="spacingAndGlyphs" textLength="82"
+			  x="621.5" y="257.1367">videos
+		</text><!--MD5=[68f544336ec011cd34d5c33b463e1b5c]
+link VideoManager to Pages-->
+		<path d="M394.72,260.18 C360.34,283.26 327.94,316.34 342,354 C355.68,390.62 384.14,423.92 409.7,448.4 "
+			  fill="none" id="VideoManager-&gt;Pages" style="stroke: #A80036; stroke-width: 2.0;"/>
+		<polygon fill="#A80036"
+				 points="417.52,455.72,409.8221,437.5888,410.2104,448.8958,398.9034,449.2841,417.52,455.72"
+				 style="stroke: #A80036; stroke-width: 2.0;"/>
+		<text fill="#000000" font-family="sans-serif" font-size="26" lengthAdjust="spacingAndGlyphs" textLength="140"
+			  x="344" y="347.1367">videos info
+		</text><!--MD5=[40fbec02d5129dee3ff83f18532f58cb]
+link Pages to VideoManager-->
+		<path d="M474.5,455.58 C487.14,421.3 502.26,367.14 494,320 C491.02,303.02 485.24,285.04 479.26,269.42 "
+			  fill="none" id="Pages-&gt;VideoManager" style="stroke: #A80036; stroke-width: 2.0;"/>
+		<polygon fill="#A80036"
+				 points="475.54,260.04,474.745,279.7217,479.2292,269.3346,489.6163,273.8189,475.54,260.04"
+				 style="stroke: #A80036; stroke-width: 2.0;"/>
+		<text fill="#000000" font-family="sans-serif" font-size="26" lengthAdjust="spacingAndGlyphs" textLength="146"
+			  x="498" y="347.1367">movements
+		</text><!--MD5=[a05da2acf5293a84a509a37e6e18c535]
+link Pages to PagingControls-->
+		<path d="M452.9,528.32 C449.12,555.48 448.08,593.46 464,622 C476.46,644.34 496.72,662.32 518.08,676.32 "
+			  fill="none" id="Pages-&gt;PagingControls" style="stroke: #A80036; stroke-width: 2.0;"/>
+		<polygon fill="#A80036" points="526.62,681.7,515.6357,665.3493,518.1529,676.3795,507.1228,678.8967,526.62,681.7"
+				 style="stroke: #A80036; stroke-width: 2.0;"/>
+		<text fill="#000000" font-family="sans-serif" font-size="26" lengthAdjust="spacingAndGlyphs" textLength="132"
+			  x="466" y="615.1367">pages info
+		</text><!--MD5=[4180840eb793a29da7fc3ff31b89627f]
+link PagingControls to Pages-->
+		<path d="M615.34,681.72 C620.74,654.58 623.74,616.64 608,588 C591.12,557.3 559.52,535.2 529.82,520.18 "
+			  fill="none" id="PagingControls-&gt;Pages" style="stroke: #A80036; stroke-width: 2.0;"/>
+		<polygon fill="#A80036"
+				 points="520.68,515.74,533.4146,530.7676,529.6863,520.0859,540.368,516.3576,520.68,515.74"
+				 style="stroke: #A80036; stroke-width: 2.0;"/>
+		<text fill="#000000" font-family="sans-serif" font-size="26" lengthAdjust="spacingAndGlyphs" textLength="146"
+			  x="620" y="615.1367">movements
+		</text><!--MD5=[0188dd10b6357c3a0eb17ad79a2305f6]
+link Pages to Cards-->
+		<path d="M520.48,492 C577.7,492 663.56,492 723.78,492 " fill="none" id="Pages-&gt;Cards"
+			  style="stroke: #A80036; stroke-width: 2.0;"/>
+		<polygon fill="#A80036" points="733.96,492,715.96,484,723.96,492,715.96,500,733.96,492"
+				 style="stroke: #A80036; stroke-width: 2.0;"/>
+		<text fill="#000000" font-family="sans-serif" font-size="26" lengthAdjust="spacingAndGlyphs" textLength="140"
+			  x="557" y="479.1367">videos info
+		</text><!--MD5=[470e7c70f6aab519240d3b7f928bc2bc]
+@startuml YouTube search components
+
+[Finder] -> [VideoManager] : user input
+note top of VideoManager : data storage
+
+[VideoManager] -> [SearchService] : request
+[SearchService] -> [VideoManager] : videos
+
+package "Slider" {
+ [VideoManager] - -> [Pages] : videos info
+ [Pages] - -> [VideoManager] : movements
+ [Pages] - -> [PagingControls] : pages info
+ [Pages] -> [Cards] : videos info
+ [PagingControls] - -> [Pages] : movements
+}
+
+@enduml
+
+PlantUML version 1.2020.09(Sun May 10 13:51:06 MSK 2020)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Java Version: 11.0.7+10-b765.53
+Operating System: Mac OS X
+Default Encoding: UTF-8
+Language: en
+Country: RU
+-->
+	</g>
+</svg>
