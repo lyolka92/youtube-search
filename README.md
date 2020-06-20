@@ -9,4 +9,3 @@
 Структура проекта выглядит следующим образом:
 
 ![youtube-search_components_diagram](YouTube_search_components.svg)
-<img src="YouTube_search_components.svg">
