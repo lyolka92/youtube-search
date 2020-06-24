@@ -34,18 +34,25 @@ export class Finder {
 	addListener() {
 		const searchInput = this.searchForm.querySelector('.search__input');
 
+		this.searchForm.addEventListener('input', async event => {
+			if (searchInput.value.length <= 3) {
+				return;
+			}
+
+			await this.search(event, searchInput.value);
+		});
+
 		this.searchForm.addEventListener('submit', async (event) => {
-			await this.search(event, searchInput);
+			await this.search(event, searchInput.value);
 		});
 	}
 
-	async search(event, searchInput) {
+	async search(event, searchRequest) {
 		event.preventDefault();
 
 		const main = document.getElementById('main');
 		const searchSpinner = new Spinner(main);
 
-		const searchRequest = searchInput.value;
 		await getNewVideos(searchRequest);
 
 		searchSpinner.remove();
