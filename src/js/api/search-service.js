@@ -1,4 +1,4 @@
-import {CONSTANTS} from '../js/constants';
+import {CONSTANTS} from '../constants';
 
 const apiUrl = CONSTANTS.API_URL;
 const apiKey = process.env.GOOGLE_API_KEY;
