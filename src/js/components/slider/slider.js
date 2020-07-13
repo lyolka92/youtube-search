@@ -1,5 +1,5 @@
 import {goToPage} from '../video-manager/video-manager';
-import {PagingControl} from './slider_paging-control';
+import {PagingControls} from './slider_paging-controls';
 import {updateCards} from './slider_cards';
 
 export class Slider {
@@ -29,7 +29,7 @@ export class Slider {
 
 		this.parentNode.appendChild(this.node);
 		this.node.appendChild(this.pagesNode);
-		this.pagingControls = new PagingControl(this.node, changeActivePage);
+		this.pagingControls = new PagingControls(this.node, changeActivePage);
 		this.addEventListeners();
 	}
 
@@ -133,11 +133,13 @@ export class Slider {
 		const pageNodeIsPrev = pageNode.classList.contains('page__prev');
 		const pageNodeIsNext = pageNode.classList.contains('page__next');
 
-		if (pageNodeIsPrev && pageInfo.pageNumber !== this.sliderParams.prevPageNumber) {
+		if (pageNodeIsPrev
+			&& (pageInfo.pageNumber !== this.sliderParams.prevPageNumber)) {
 			pageNode.classList.remove('page__prev');
 		}
 
-		if (pageNodeIsNext && pageInfo.pageNumber !== this.sliderParams.nextPageNumber) {
+		if (pageNodeIsNext
+			&& (pageInfo.pageNumber !== this.sliderParams.nextPageNumber)) {
 			pageNode.classList.remove('page__next');
 		}
 

@@ -28,6 +28,8 @@ export async function getNewVideos(searchRequest) {
 	videosInfo.pagination.currentPage = 1;
 	addVideos(searchResult);
 
+	console.log(videos);
+
 	slider.moveToPage(videos, videosInfo.pagination.pagesCount, videosInfo.pagination.currentPage);
 }
 
@@ -59,9 +61,7 @@ export async function goToPage(pageNumber) {
 	const oldPageNumber = videosInfo.pagination.currentPage;
 	videosInfo.pagination.currentPage = pageNumber;
 
-	if (pageNumber === oldPageNumber) {
-		console.log('Что-то не то');
-	} else if (pageNumber > oldPageNumber) {
+	if (pageNumber > oldPageNumber) {
 		await moveNext();
 	} else if (pageNumber < oldPageNumber) {
 		movePrev();

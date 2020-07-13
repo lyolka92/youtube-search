@@ -34,7 +34,7 @@ export class Finder {
 	addListener() {
 		const searchInput = this.searchForm.querySelector('.search__input');
 
-		this.searchForm.addEventListener('input', async event => {
+		this.searchForm.addEventListener('input', async (event) => {
 			if (searchInput.value.length <= 3) {
 				return;
 			}
