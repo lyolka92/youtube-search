@@ -1,0 +1,100 @@
+@import "../../../scss/utils/vars";
+
+.video {
+  display: flex;
+  flex-direction: column;
+
+  flex-basis: 480px;
+  min-width: 280px;
+  box-sizing: border-box;
+
+  background-color: #fff;
+  border: #ccc 1px solid;
+  border-radius: 5px;
+  line-height: 0;
+
+  &__hidden {
+    display: none;
+  }
+
+  &__header {
+    position: relative;
+
+    flex-basis: 320px;
+
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    border-radius: 4px 4px 0 0;
+
+    &-title {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+
+      width: 100%;
+      box-sizing: border-box;
+
+      line-height: $mainLineHeight;
+      text-align: center;
+      word-break: break-word;
+      background-color: rgba(34, 34, 34, 0.5);
+
+      &:hover {
+        background-color: rgba(17, 17, 17, 0.7);
+      }
+
+      &-link {
+        display: inline-block;
+        width: 100%;
+        height: 100%;
+        padding: $commonMargin;
+        color: white;
+        box-sizing: border-box;
+
+        &:hover {
+          color: #ddd;
+        }
+      }
+    }
+  }
+
+  &__info {
+    flex-basis: 320px;
+
+    padding: $commonMargin * 2;
+    line-height: $mainLineHeight;
+    word-break: break-word;
+
+    &-params {
+      padding-left: 0;
+      padding-bottom: $commonMargin;
+      margin: 0;
+
+      list-style: none;
+      border-bottom: #ccc 1px solid;
+
+      & ::before {
+        margin-right: $commonMargin;
+      }
+
+      &__author::before {
+        content: "👤";
+      }
+
+      &__upload-date::before {
+        content: "📅";
+      }
+
+      &__view-count::before {
+        content: "🍿";
+      }
+    }
+
+    &-description {
+      margin-top: $commonMargin;
+      margin-bottom: 0;
+      font-weight: 300;
+    }
+  }
+}

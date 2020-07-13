@@ -1,0 +1,43 @@
+html {
+  font-family: $mainFont;
+  line-height: $mainLineHeight;
+  font-size: $mainFontSize;
+  color: $mainFontColor;
+  height: 100%;
+  background-color: #eee;
+
+  @media screen and (max-width: $desktopWidth) {
+	font-size: 16px;
+  }
+  @media screen and (max-width: $tabletWidth) {
+	font-size: 15px;
+  }
+  @media screen and (max-width: $phoneWidth) {
+	font-size: 14px;
+  }
+}
+
+body, h1, h2 {
+  margin: 0;
+}
+
+p {
+  margin: $commonMargin/2 0;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60px;
+  margin: $commonMargin * 2;
+  margin-bottom: $commonMargin;
+
+  @media screen and (max-width: $tabletWidth) {
+	justify-content: flex-end;
+  }
+}
+
+main {
+  overflow: hidden;
+}

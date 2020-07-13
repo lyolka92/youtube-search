@@ -1,0 +1,12 @@
+@import "utils/mixins";
+@import "utils/vars";
+
+@import "common/label";
+@import "common/common";
+
+@import "../js/components/finder/finder";
+@import "../js/components/slider/slider";
+@import "../js/components/slider/slider_page";
+@import "../js/components/slider/slider_cards";
+@import "../js/components/slider/slider_paging-controls";
+@import "../js/components/spinner/spinner";

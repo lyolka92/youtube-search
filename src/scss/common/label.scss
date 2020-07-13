@@ -1,0 +1,14 @@
+@import '../utils/vars';
+
+.label {
+  position: absolute;
+  top: $commonMargin * 2;
+  left: $commonMargin * 2;
+
+  width: $labelWidth;
+  height: 60px;
+
+  font-family: 'Saira Stencil One', cursive;
+  font-size: $commonMargin;
+  color: #555;
+}
